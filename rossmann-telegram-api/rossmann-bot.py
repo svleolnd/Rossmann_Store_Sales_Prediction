@@ -95,37 +95,37 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-        if request.method == 'POST':
-            message = request.get_json()
+    if request.method == 'POST':
+        message = request.get_json()
 
-            # parses message comming from json
-            chat_id, store_id = parse_massage( message )
+        # parses message comming from json
+        chat_id, store_id = parse_massage( message )
 
-            if store_id != 'error':
-                # loading data
-                data = load_dataset( store_id )
+        if store_id != 'error':
+            # loading data
+            data = load_dataset( store_id )
 
-                if data != 'error':
-                    # prediction
-                    d1 = predict(data)
-                    # calculation
-                    # O Valor da soma o quanto vai vender no final das seis semanas
-                    d2 = d1[['store', 'prediction']].groupby( 'store' ).sum().reset_index()
+            if data != 'error':
+                # prediction
+                d1 = predict(data)
+                # calculation
+                # O Valor da soma o quanto vai vender no final das seis semanas
+                d2 = d1[['store', 'prediction']].groupby( 'store' ).sum().reset_index()
 
-                    # send message
-                    msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(d2['store'].values[0],d2['prediction'].values[0] )
-                    send_message( chat_id, msg )
-                    return Response('OK', status=200)
-
-                else:
-                    send_message( chat_id, 'Store Not Available')
-                    #return Response('OK', status=200)
-            else:
-                send_message(chat_id, 'Store ID is Wrong')
+                # send message
+                msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(d2['store'].values[0],d2['prediction'].values[0] )
+                send_message( chat_id, msg )
                 return Response('OK', status=200)
 
+            else:
+                send_message( chat_id, 'Store Not Available')
+                #return Response('OK', status=200)
         else:
-            return '<h1> Rossmann Telegram BOT <h1>'
+            send_message(chat_id, 'Store ID is Wrong')
+            return Response('OK', status=200)
+
+    else:
+        return '<h1> Rossmann Telegram BOT <h1>'
 
 if __name__ == '__main__':
     port = os.environ.get('PORT', 5000)
