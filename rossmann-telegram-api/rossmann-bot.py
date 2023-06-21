@@ -38,7 +38,7 @@ def send_message( chat_id, text ):
 def load_dataset( store_id ):
     # loading test dataset
     df10 = pd.read_csv( 'test.csv' )
-    df_store_row = pd.read_csv( 'store.csv' )
+    df_store_raw = pd.read_csv( 'store.csv' )
 
     # merge test dataset + store
     df_test = pd.merge( df10, df_store_row, how='left', on='Store' )
@@ -94,7 +94,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     if request.method == 'POST':
         message = request.get_json()
 
@@ -114,7 +113,8 @@ def index():
 
                 # send message
                 msg = 'Store Number {} will sell R${:,.2f} in the next 6 weeks'.format(d2['store'].values[0],d2['prediction'].values[0] )
-                send_message( chat_id, msg )
+                
+		send_message( chat_id, msg )
                 return Response('OK', status=200)
 
             else:
@@ -125,7 +125,7 @@ def index():
             return Response('OK', status=200)
 
     else:
-        return '<h1> Rossmann Telegram BOT <h1>'
+        return '<h1> Rossmann Telegram BOT </h1>'
 
 if __name__ == '__main__':
     port = os.environ.get('PORT', 5000)
