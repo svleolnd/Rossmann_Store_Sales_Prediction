@@ -41,7 +41,7 @@ def load_dataset( store_id ):
     df_store_raw = pd.read_csv( 'store.csv' )
 
     # merge test dataset + store
-    df_test = pd.merge( df10, df_store_row, how='left', on='Store' )
+    df_test = pd.merge( df10, df_store_raw, how='left', on='Store' )
 
     # choose store for prediction
     df_test = df_test[df_test['Store'] == store_id]
