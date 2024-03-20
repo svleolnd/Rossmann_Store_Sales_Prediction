@@ -1,34 +1,35 @@
 # Rossmann Store Sales Prediction
-Este repositório contém script para previsão de vendas
+
 
 <div align="center">
-<img src="Imagens/Rossmann.jpg" width="500px">
+<img src="img/rossmann.jpg" width="500px">
 </div>
 </br>
 
 
+
+# Problema de Negócio
+
+A Rossmann, é uma rede de varejo farmacêutico estabelecida em 1972 em Hanover, Alemanha. Todos os meses é realizado uma reunião com todos os gerentes de lojas para apresentação de resultados.
+Na reunião do último mês o CFO (Chief Financial Officer) solicitou aos gerentes que fizessem a predição das vendas de suas respectivas lojas para as próximas seis semanas. Essa solicitação tem como objetivo a destinação de parte do faturamento ser destinado para reforma das lojas.
+
+A partir disso, iniciamos o planejamento da solução para auxiliar os gerentes nesta entrega.
+
+Os dados são provenientes da competição do Kaggle disponível [clicando aqui](https://www.kaggle.com/c/rossmann-store-sales/data).
+
+<br>
+
 # _Objetivo do projeto_
 
-<img src="Imagens/rossmann_store.jpg" width="220px" align='right'>
 
 <p align = 'left'>
 
-Fazer a previsão de vendas de todas as unidades da rede, para isso, uma parcela do faturamento de cada loja deverá ser destinada para reforma da mesma nas próximas 6 semanas.
+Fazer a previsão de vendas para as próximas 6 semanas das 1.115 lojas disponíveis no dataset
 <p>
 
 <br>
 
-# _1. Problema de Negócio_
-
-A Rossmann é uma empresa farmacêutica da Europa e todo final de mês existe uma reunião com todos os gerentes destas lojas para apresentar os resultados.
-Na reunião do último mês o CFO (Chief Financial Officer) pediu para todos os gerentes das lojas fizessem uma predição das próximas seis semanas de vendas de cada uma das suas lojas.
-Então depois desta reunião de resultados os gerentes saíram com esta tarefa de fazer esta predição.
-
-Neste cenário fictício, nossa fonte de dados é um arquivo csv de uma competição do Kaggle [clicando aqui](https://www.kaggle.com/c/rossmann-store-sales/data).
-
-<br>
-
-# _2. Justificativa_
+# Justificativa
 
 - **Por quê:** Dificuldade em determinar o valor do investimento para reformas de cada loja.
 - **Como:** Com a método CRISP-DM.
@@ -36,7 +37,7 @@ Neste cenário fictício, nossa fonte de dados é um arquivo csv de uma competi�
 
 <br>
 
-# _3. Premissas_
+#  Premissas
 
 As variáveis originais do conjuto de dados são:<br>
 
@@ -63,7 +64,7 @@ PromoInterval | descreve os intervalos consecutivos em que a Promo2 é iniciada,
 
 <br>
 
-# _4. Planejamento da Solução_
+# Planejamento da Solução_
 
 O planejamento da solução para este projeto se baseia no método CRISP-DM (Cross Industry Standard Process for Data Mining), que é uma metodologia cíclica e flexivel voltada para resolução de problemas que envolvem grande volume de dados que permite a entrega rápida de valor para os times de negócio.
 
@@ -71,7 +72,7 @@ Segue abaixo uma breve ilustração das principais etapas desse processo:
 
 <br>
 <div align="center">
-<img src="Imagens/CRISP2.png" width="700px">
+<img src="img/crisp.png" width="700px">
 </div>
 <br>
 
@@ -231,7 +232,7 @@ Com o modelo selecionado, treinado e avaliado com uma boa performance, chegou a 
 Neste aplicativo, o usuário deverá informar para um bot criado no Telegram o ID da loja a qual deseja obter a previsão de vendas nas próximas 6 semanas. Assim, o bot retornará uma mensagem com a previsão.
 
 <div align="center">
-<img src="Imagens/telegramBot.gif" width="250px">
+<img src="img/telegramBot.gif" width="250px">
 </div>
 </br>
 
