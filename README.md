@@ -8,12 +8,10 @@
 
 
 
-# Problema de Negócio
+# Questão de Negócio
 
 A Rossmann, é uma rede de varejo farmacêutico estabelecida em 1972 em Hanover, Alemanha. Todos os meses é realizado uma reunião com todos os gerentes de lojas para apresentação de resultados.
-Na reunião do último mês o CFO (Chief Financial Officer) solicitou aos gerentes que fizessem a predição das vendas de suas respectivas lojas para as próximas seis semanas. Essa solicitação tem como objetivo a destinação de parte do faturamento ser destinado para reforma das lojas.
-
-A partir disso, iniciamos o planejamento da solução para auxiliar os gerentes nesta entrega.
+Na reunião do último mês o CFO (Chief Financial Officer) solicitou aos gerentes que fizessem a predição das vendas de suas respectivas lojas para as próximas seis semanas. Essa solicitação tem como objetivo a destinação de parte do faturamento ser destinado para reforma das lojas. A partir disso, iniciamos o planejamento da solução para auxiliar os gerentes nesta entrega.
 
 Os dados são provenientes da competição do Kaggle disponível [clicando aqui](https://www.kaggle.com/c/rossmann-store-sales/data).
 
@@ -29,17 +27,23 @@ Fazer a previsão de vendas para as próximas 6 semanas das 1.115 lojas disponí
 
 <br>
 
-# Justificativa
+# Premissas de negócio
 
-- **Por quê:** Dificuldade em determinar o valor do investimento para reformas de cada loja.
-- **Como:** Com a método CRISP-DM.
-- **O quê:** Um modelo Machine Learning para realizar a previsão de vendas de todas as lojas.
+Foi realizado o levantamento de algumas premissas que o projeto precisa atender:
+
+1. O CFO deve ter acesso às previsões de qualquer lugar.
+2. O CFO precisa ter liberdade para analisar caso a caso.
+3. Os dias em que as lojas estiveram fechadas serão excluídos da previsão.
+4. A previsão considerará apenas as lojas que tiveram vendas superiores a 0 nos dados disponíveis.
+5. A equipe definiu algumas metas financeiras a serem cumpridas para identificar se o estabelecimento pode ou não ser reformado e qual é o limite máximo do budget:
+    1. Se a média do faturamento previsto for menor do que a média das faturamento, então não podemos fazer a reforma; caso contrário podemos fazer a reforma.
+    2.  Se a diferença do faturamento previsto for menor do que 2,5%, pode-se utilizar 7,5% do faturamento total para a reforma. Se estiver entre 2,5% e 5%, utiliza-se 10%; se for superior a 5%, utiliza-se 12,5% do faturamento.
 
 <br>
 
-#  Premissas
+#  Descrição dos dados
 
-As variáveis originais do conjuto de dados são:<br>
+As variáveis originais do conjunto de dados são:<br>
 
 Variável | Definição
 ------------ | -------------
@@ -64,7 +68,7 @@ PromoInterval | descreve os intervalos consecutivos em que a Promo2 é iniciada,
 
 <br>
 
-# Planejamento da Solução_
+# Planejamento da Solução
 
 O planejamento da solução para este projeto se baseia no método CRISP-DM (Cross Industry Standard Process for Data Mining), que é uma metodologia cíclica e flexivel voltada para resolução de problemas que envolvem grande volume de dados que permite a entrega rápida de valor para os times de negócio.
 
@@ -76,94 +80,41 @@ Segue abaixo uma breve ilustração das principais etapas desse processo:
 </div>
 <br>
 
-# Insights
+# Análise dos dados
 
-*Resumo dos insights durante análise exploratória de dados (EDA):*
+Após a limpeza e o tratamento inicial dos dados. Foi realizado uma análise estatística da qual houve o desenvolvimento de novas features e levantamento de hipóteses de negócio.
 
-**Gráfico para saber o número das vendas por ano.**
-
-<br>
-<div align="center">
-<img src="Imagens/VendasAno.PNG" width="700px">
-</div>
-<br>
+# Insights de Negócio
+Foram levantadas, respondidas e aplicada um grau de relevância para o negócio em 12 hipóteses conforme quadro a baixo:
 
 <br>
-<div align="center">
-<img src="Imagens/VariacaoVendasAno.PNG" width="700px">
-</div>
-<br>
 
-**Nota:**
-- Temos uma queda nas vendas ao decorrer dos anos, que precisa ser analisado, para não afetar as vendas de 2015.
-- Mas comparando o mesmo período de meses entre 2014 e 2015 temos um aumento de 6%.
-- No no de 2015 até o mês de julho temos um crescimento de 6%, mas seria importante analisar o comportamento das vendas de 2014, para compreender o motivo da queda das vendas.
-
-**Gráfico para visualizar a soma das vendas por mês.**
-
-<br>
-<div align="center">
-<img src="Imagens/VendasMes.PNG" width="700px">
-</div>
-<br>
-
-**Nota:**
-- Por meio deste gráfico podemos perceber que no mês de novembro e dezembro segue uma sequência de aumento das vendas que pode ser explicada pela Black Friday e Natal, com está visualização a empresa pode fazer um planejamento de qual mês é mais importante para empresa para deixar preparado o estoque.
-
-**Gráfico para visualizar a soma das vendas por dia.**
+| Hipótese | Pergunta | Resultato | Relevancia |
+| -------- | --- | --------- | --------- |
+| H1 | Lojas com maior sortimento deveriam vender mais. | FALSA | BAIXA |
+| H2 | Lojas com competidores mais próximos deveriam vender menos. | FALSA | MEDIA |
+| H3 | Lojas com competidores a mais tempo vender mais. | FALSA | MEDIA |
+| H4 | Lojas com promoção ativa por mais tempo deveriam vender mais. | FALSA | BAIXA |
+| H5 | <s>Lojas com mais dias de promoção deveriam vender mais.</s> | --- | ---  |
+| H6 | Lojas com mais promoções consecultivas deveriam vender mais. | FALSA | BAIXA |
+| H7 | Lojas abertas durante o feriado de Natal deveriam vender mais. | FALSA | MEDIA |
+| H8 | Lojas deveriam vender mais ao longo dos anos. | FALSA | ALTA |
+| H9 | Lojas deveriam vender mais no segundo semestre do ano. | FALSA | ALTA |
+| H10 | Lojas deveriam vender mais depois do dia 10 de cada mês. | FALSO | ALTA |
+| H11 | Lojas deveriam vender menos aos finais de semana. | VERDADEIRA | ALTA |
+| H12 | Lojas deveriam vender menos durante os feriados escolares. | VERDADEIRA | BAIXA |
 
 <br>
-<div align="center">
-<img src="Imagens/VendasDias.PNG" width="700px">
-</div>
-<br>
 
-**Nota:**
-- Podemos perceber que as vendas no final do mês, apresenta uma queda bem acentuada nas vendas.
+Irei destacar somente as 2 hipóteses com maior impacto no negócio.
 
-**Gráfico para visualizar a soma das vendas por dia da semana.**
+### H10. Lojas deveriam vender mais depois do dia 10 de cada mês.
+Hipótese Falsa. Percebe-se que há um decréscimo nas vendas após o dia 10. E a distribuição de vendas ao longo do mês a caba sendo bem estável com um leve declínio durante todo o mês.
+![H10](img/h10.png)
 
-<br>
-<div align="center">
-<img src="Imagens/VendasDiaSemana.PNG" width="700px">
-</div>
-<br>
-
-**Nota:**
-- Podemos ver que o menor pico de vendas é no domingo, esta é uma informação que precisa compreender melhor este comportamento.
-
-**Gráfico para visualizar o número de cliente que vão na loja por mês.**
-
-<br>
-<div align="center">
-<img src="Imagens/ClienteLoja.PNG" width="700px">
-</div>
-<br>
-
-**Nota:**
-- O aumento da média de cliente no mês de novembro e dezembro pode ser explicado pela Black Friday e Natal, com está visualização a empresa pode fazer um planejamento de qual mês é mais importante para empresa para deixar preparado o estoque e os funcionários.
-
-**Gráfico para saber se a promoção afeta o número de cliente.**
-
-<br>
-<div align="center">
-<img src="Imagens/ClientePromocao.PNG" width="700px">
-</div>
-<br>
-
-**Nota:**
-- Podemos afirmar que quando têm promoção o número de cliente não aumentam muito (147), porém o número de vendas aumenta consideravelmente, pode ser que vários clientes acabam combrando mais produtos.
-
-**Gráfico para saber se a promoção afeta as vendas.**
-
-<br>
-<div align="center">
-<img src="Imagens/VendasPromocao.PNG" width="700px">
-</div>
-<br>
-
-**Nota:**
-- Podemos perceber que quando temos promoção na loja as vendas aumentam cerca de 12%.
+### H11. Lojas deveriam vender menos aos finais de semana.
+Hipótese Verdadeira. Realmente no final de semana há uma diminuição abrupta nas vendas, parte disso deve-se ao fato do Domingo ter um movimento comercial muito baixo.
+![H11](img/h11.png)
 
 # Modelos de Machine Learning
 
@@ -219,6 +170,22 @@ A métrica final do modelo ficou desta forma:
 
  <br>
 
+Os gráficos a seguir apresentam a performance do modelo ‘XGBRegressor’:
+
+O gráfico 1 mostra a comparação entre o valor previsto e o valor real das vendas ao longo das semanas, o que revelou uma alta fidelidade nas predições do modelo em relação aos dados reais.
+
+O gráfico 2 exibiu a porcentagem de acerto das previsões em relação às vendas ao longo do tempo. Quando igual a um, representa uma predição precisa, ou seja, dias em que o modelo previu com exatidão as vendas. Valores acima de um indicam superestimação, enquanto valores abaixo de um apontam subestimação nas previsões de vendas.
+
+O gráfico 3 que calcula o erro tem uma distribuição Gausiana, mais próxima de uma curva normal, isso é mais um indicador que o modelo está performando bem.
+
+O gráfico 4 foi elaborado com o propósito de analisar a distribuição da taxa de erro na previsão de vendas em diferentes regiões. É relevante destacar que a média de erro é de 10%, porém, em alguns casos, essa porcentagem ultrapassou os 50%. 
+
+<br>
+<div align="center">
+<img src="img/Performance modelo.PNG" width="900px">
+</div>
+<br>
+
 # Resultado Negócio
 
 Após a escolha do nosso algoritmo, somos capazes de visualizar alguns cenarios do ponto de vista de negócio.
@@ -240,17 +207,6 @@ Loja|Predição €|Pior cenário €|MelhorCenário €|MAE|MAPE %
 
  <br>
 
-**Gráfico para visualizar a performance da predição em relação as vendas reais.**
-
- <br>
- <div align="center">
- <img src="Imagens/RealPrevisao.PNG" width="700px">
- </div>
- <br>
-
- O gráfico esta mostrando as seis semanas de teste e podemos ver que as predições ao longo do tempo esta bem próxima das vendas.
-
- <br>
 
 # Conclusão
 
