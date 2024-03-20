@@ -19,7 +19,7 @@ Os dados são provenientes da competição do Kaggle disponível [clicando aqui]
 
 <br>
 
-# _Objetivo do projeto_
+# Objetivo do projeto
 
 
 <p align = 'left'>
@@ -76,7 +76,7 @@ Segue abaixo uma breve ilustração das principais etapas desse processo:
 </div>
 <br>
 
-# _5. Insights_
+# Insights
 
 *Resumo dos insights durante análise exploratória de dados (EDA):*
 
@@ -165,31 +165,40 @@ Segue abaixo uma breve ilustração das principais etapas desse processo:
 **Nota:**
 - Podemos perceber que quando temos promoção na loja as vendas aumentam cerca de 12%.
 
-# _6. Modelos de Machine Learning_
+# Modelos de Machine Learning
 
 1. Average Model
 2. Linear Regressor
 3. Linear Regressor Regularizaded (Lasso)
 4. Random Forest Regressor
-5. Prophet
-6. XGBoost Regressor
-
-<br>
-<div align="center">
-<img src="Imagens/Modelos.PNG" width="700px">
-</div>
-<br>
+5. XGBoost Regressor
 
 <br>
 
-# _7. Performance do Modelo de Machine Learning_
+| Index | Model Name | MAE | MAPE | RMSE |
+| ----- | ---------- | --- | ---- | ---- |
+| 1 | Average Model | 1354.84 | 0.46 | 1835.02 |
+| 2 | Linear Regression | 1867.09 | 0.29 | 2671.05 |
+| 3 | Linear Regression - Lasso | 1891.70 | 0.29 | 2744.45 |
+| 4 | Random Forest Regressor | 679.60 | 0.10 | 1011.12 |
+| 5 | XGBRegressor | 	883.72 | 0.13 | 1274.23 |
+
+
+<br>
+
+# Performance dos Modelos de Machine Learning após cross validation
 
 Comparando o desempenho dos modelos - Cross Validation.
 
 <br>
-<div align="center">
-<img src="Imagens/PerformanceModelo.PNG" width="700px">
-</div>
+
+| Index | Model Name | MAE | MAPE | RMSE |
+| ----- | ---------- | --- | ---- | ---- |
+| 1 | Linear Regression | 2081.73 +/- 295.63 | 0.3 +/- 0.02 | 2952.52 +/- 468.37 |
+| 2 | Linear Regression - Lasso | 2116.38 +/- 341.5 | 0.29 +/- 0.01 | 3057.75 +/- 504.26 |
+| 3 | Random Forest Regressor | 837.68 +/- 219.1 | 0.12 +/- 0.02| 1256.08 +/- 320.36 |
+| 4 | XGBRegressor | 	1030.28 +/- 167.19 | 0.14 +/- 0.02 | 1478.26 +/- 229.79 |
+
 <br>
 
 **Nota:**
@@ -198,20 +207,38 @@ Comparando o desempenho dos modelos - Cross Validation.
 
 <br>
 
-# _8. Resultado Negócio_
+# Performance do Modelo Final após fine tunning
+
+A métrica final do modelo ficou desta forma:
+
+ <br>
+
+| Index | Model Name | MAE | MAPE | RMSE |
+| ----- | ---------- | --- | ---- | ---- |
+| 1 | XGBoost Regressor | 770.21 | 0.12 | 1108.06 |
+
+ <br>
+
+# Resultado Negócio
 
 Após a escolha do nosso algoritmo, somos capazes de visualizar alguns cenarios do ponto de vista de negócio.
 
  <br>
- <div align="center">
- <img src="Imagens/Cenario.PNG" width="700px">
- </div>
+
+Loja|Predição €|Pior cenário €|MelhorCenário €|MAE|MAPE %
+| ----- | ---------- | --- | ---- | ---- |---- |
+55	|	172.468,20|	171.977,62|	172.958,78|	490,58|	10,20
+932	|	282.757,31|	282.148,06|	283.366,56|	609,25|	7,83
+638	|	232.906,75|	232.469,60|	233.343,90|	437,15|	6,75
+642	|	137.029,94|	136.461,57|	137.598,31|	568,37|	17,99
+
  <br>
 
  **Nota:**
 
- - Na loja 286, vamos fazer  189.498 reais de receita nas próximas 6 semanas com um erro de 4%, que corresponde a 1.433 reais.
- - No pior cenário podemos vender 188.064 reais e no melhor 190.932 reais.
+ - Na loja 638, a previsão é vender  232.469 euros nas próximas 6 semanas com um erro de 6,75%
+
+ <br>
 
 **Gráfico para visualizar a performance da predição em relação as vendas reais.**
 
@@ -225,7 +252,7 @@ Após a escolha do nosso algoritmo, somos capazes de visualizar alguns cenarios 
 
  <br>
 
-# _9. Conclusão_
+# Conclusão
 
 Com o modelo selecionado, treinado e avaliado com uma boa performance, chegou a hora de coloca-lo em produção. Para isso, optamos por disponibilizar as predições do projeto de forma online através do aplicativo de mensagens Telegram.
 
@@ -236,7 +263,7 @@ Neste aplicativo, o usuário deverá informar para um bot criado no Telegram o I
 </div>
 </br>
 
-# _10. Próximos passos_
+# Próximos passos
 
 1. Temos uma queda nas vendas ao decorrer dos anos, que precisa ser analisado, para não afetar as vendas de 2015.
    - Mas comparando o mesmo período de meses entre 2014 e 2015 temos um aumento de 6%.
