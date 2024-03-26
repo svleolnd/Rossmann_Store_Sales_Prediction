@@ -72,7 +72,7 @@ PromoInterval | descreve os intervalos consecutivos em que a Promo2 é iniciada,
 
 O planejamento da solução para este projeto se baseia no método CRISP-DM (Cross Industry Standard Process for Data Mining), que é uma metodologia cíclica e flexivel voltada para resolução de problemas que envolvem grande volume de dados que permite a entrega rápida de valor para os times de negócio.
 
-Segue abaixo uma breve ilustração das principais etapas desse processo:
+Abaixo uma breve ilustração das principais etapas desse processo:
 
 <br>
 <div align="center">
@@ -154,13 +154,15 @@ Comparando o desempenho dos modelos - Cross Validation.
 
 **Nota:**
 
-- Também podemos observar a tabela final e ver que Random Forest Regressor tem uma performance melhor que todos os outros modelos.
+- Podemos observar que o modelo Random Forest Regressor obteve uma performance melhor que todos os outros modelos.
+
+- Observa-se que o algoritmo ‘Random Forest Regressor’ possui melhor desempenho se comparado com os demais, com uma RMSE de 1256. Haja visto que os custos envolvidos por conta da demanda computacional para manter este modelo em produção, superam os benefícios gerados neste primeiro ciclo do CRISP-DM. Optou-se por treinar o modelo final utilizando o “XGBoost Regressor”, que teve um RMSE de 1478, o que demonstra pouca diferença entre os modelos de menor RMSE.
 
 <br>
 
 # Performance do Modelo Final após fine tunning
 
-A métrica final do modelo ficou desta forma:
+A métrica final do modelo XGB Regresor ficou desta forma:
 
  <br>
 
@@ -221,6 +223,8 @@ Neste aplicativo, o usuário deverá informar para um bot criado no Telegram o I
 
 # Próximos passos
 
+Em um próximo ciclo do CRISP, podemos analisar algumas observações feitas durante o projeto:
+
 1. Temos uma queda nas vendas ao decorrer dos anos, que precisa ser analisado, para não afetar as vendas de 2015.
    - Mas comparando o mesmo período de meses entre 2014 e 2015 temos um aumento de 6%.
 
@@ -232,3 +236,5 @@ Neste aplicativo, o usuário deverá informar para um bot criado no Telegram o I
 3. Podemos perceber que as vendas no final do mês, apresenta uma queda bem acentuada nas vendas, que precisa análisar.
 
 4. Podemos ver que o menor pico de vendas é no domingo, esta é uma informação que precisa compreender melhor este comportamento.
+
+5. A variável "customers" foi descartada logo no começo, pois um projeto a parte pode ser feito para integrar no projeto final
